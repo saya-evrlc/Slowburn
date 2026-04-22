@@ -1,0 +1,80 @@
+const modifier = (text) => {
+  // 1. INITIALIZE DATA & DISCOVER SETTINGS
+  if (!state.npc) state.npc = { name: "Companion", level: 0 };
+  let gainRate = 0.2;
+  let drainRate = 0.5;
+
+  // 2. MULTI-CARD SEARCH & NAME DISCOVERY
+  // Loops through all cards to find the character name and current stage
+  let currentInfo = "Normal behavior.";
+  let bestMatchThreshold = -1;
+
+  storyCards.forEach(card => {
+    if (card.entry.includes("Evolution Stages")) {
+      const nMatch = card.entry.match(/Character Name:\s*(.*)/i);
+      const gMatch = card.entry.match(/Gain Rate:\s*([\d.]+)/i);
+      const dMatch = card.entry.match(/Drain Rate:\s*([\d.]+)/i);
+      
+      if (nMatch) state.npc.name = nMatch[1].trim();
+      if (gMatch) gainRate = parseFloat(gMatch[1]);
+      if (dMatch) drainRate = parseFloat(dMatch[1]);
+
+      const lines = card.entry.split('\n');
+      lines.forEach(line => {
+        const match = line.match(/^(\d+):\s*(.*)/);
+        if (match) {
+          const threshold = parseInt(match[1]);
+          if (state.npc.level >= threshold && threshold > bestMatchThreshold) {
+            bestMatchThreshold = threshold;
+            currentInfo = match[2].trim();
+          }
+        }
+      });
+    }
+  });
+
+  // 3. SCORING LOGIC WITH SPAM PROTECTION
+  const aiText = text.toLowerCase();
+  const playerInvolved = aiText.includes("you") || aiText.includes("your");
+
+  if (playerInvolved) {
+    const pos = [
+      "nod", "agree", "thank", "polite", "helpful", "share", "listen", "patience", 
+      "respect", "kindly", "calm", "pleasant", "thoughtful", "admire", "honest", 
+      "cooperate", "assist", "welcome", "comfort", "reassure", "friendly", "softly",
+      "laugh", "chuckled", "curious", "interest", "civility", "courteous", "stable",
+      "blush", "smile", "yield", "soften", "lean", "whisper", "tremble", "warm", "accept", 
+      "nuzzle", "giggle", "sigh", "purr", "moan", "relax", "melt", "cuddle", "hug", "kiss", 
+      "blossom", "trust", "eager", "comply", "obey", "shiver", "stroke", "caress", "devotion", 
+      "flutter", "glow", "radiate"
+    ];
+
+    const neg = [
+      "recoil", "cold", "stern", "angry", "refuse", "snap", "distant", "harsh", "glare", 
+      "tense", "shove", "push", "slap", "hiss", "growl", "sneer", "scowl", "scoff", "resist", 
+      "struggle", "flinch", "avoid", "ignore", "disdain", "disgust", "revolt", "cringe", 
+      "stiffen", "withdraw", "shout", "yell", "threaten", "spite", "bitter", "rude", "insult"
+    ];
+
+    let change = 0;
+    // Uses .includes() on each word once to prevent "sigh sigh sigh" spam
+    pos.forEach(word => { if (aiText.includes(word)) change += gainRate; });
+    neg.forEach(word => { if (aiText.includes(word)) change -= drainRate; });
+    state.npc.level = Math.max(0, Math.min(100, state.npc.level + change));
+  }
+
+  // 4. SMART AUTHOR'S NOTE INJECTION (End of Note Placement)
+  const evoString = `[${state.npc.name}'s State: ${currentInfo} (${state.npc.level.toFixed(1)}/100)]`;
+  let note = state.memory.authorsNote || "";
+  const evoRegex = /\[.*?'s State:.*?\]|\[EVO:.*?\]/g;
+
+  // Remove old tag if it exists, then re-append to the very end
+  if (evoRegex.test(note)) {
+    note = note.replace(evoRegex, "").trim();
+  }
+  state.memory.authorsNote = (note + " " + evoString).trim();
+
+  return { text };
+};
+// Don't modify this part
+modifier(text)
