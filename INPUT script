@@ -1,0 +1,41 @@
+const modifier = (text) => {
+  if (!state.npc) return { text };
+
+  // 1. MULTI-CARD SEARCH (To find the current label)
+  let currentInfo = "Normal behavior.";
+  let bestMatchThreshold = -1;
+
+  storyCards.forEach(card => {
+    if (card.entry.includes("Evolution Stages")) {
+      const nMatch = card.entry.match(/Character Name:\s*(.*)/i);
+      if (nMatch) state.npc.name = nMatch[1].trim();
+
+      const lines = card.entry.split('\n');
+      lines.forEach(line => {
+        const match = line.match(/^(\d+):\s*(.*)/);
+        if (match) {
+          const threshold = parseInt(match[1]);
+          if (state.npc.level >= threshold && threshold > bestMatchThreshold) {
+            bestMatchThreshold = threshold;
+            currentInfo = match[2].trim();
+          }
+        }
+      });
+    }
+  });
+
+  // 2. SMART AUTHOR'S NOTE INJECTION (Matches Output placement)
+  const evoString = `[${state.npc.name}'s State: ${currentInfo} (${state.npc.level.toFixed(1)}/100)]`;
+  let note = state.memory.authorsNote || "";
+  const evoRegex = /\[.*?'s State:.*?\]|\[EVO:.*?\]/g;
+
+  if (evoRegex.test(note)) {
+    note = note.replace(evoRegex, "").trim();
+  }
+  state.memory.authorsNote = (note + " " + evoString).trim();
+
+  return { text };
+};
+
+// Don't modify this part
+modifier(text)
