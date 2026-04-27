@@ -15,6 +15,7 @@ If you are only using Slowburn:
     1. Delete everything in the Library tab then copy and paste everything in "Put in LIBRARY" to the Library tab.
     2. Delete everything in the Input tab then copy and paste everything in "Put in INPUT" to the Input tab.
     3. Delete everything in the Output tab then copy and paste everything in "Put in "OUTPUT" to the Output tab.
+
 Option B: Combined Installation (With Inner Self/Auto-Cards)
 If you are using the Inner Self suite or other scripts:
     1. In the Library tab, copy everything in "Put in LIBRARY" and paste it below any other scripts in the Library tab.
