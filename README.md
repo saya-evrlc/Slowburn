@@ -4,6 +4,7 @@ Slowburn is a high-performance scripting system for AI Dungeon. It allows your N
 Unlike standard story cards that can bloat the AI's memory, this engine uses a "Database" approach. It tracks a character's progress on a scale of 0 to 100 and injects only their current state into the Author's Note, keeping the AI focused and the context clean.
 
 🚀 Installation
+
 To install the engine, you will need to access the Scripting section of your AI Dungeon scenario.
     Open the Scripting Tab: Navigate to your scenario settings and select "Scripting."
     Slowburn is designed to be a "plug-and-play" evolution engine. Because it uses a centralized Library function, it is highly compatible with other popular scripting suites like Inner Self and Auto-Cards.
