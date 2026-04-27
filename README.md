@@ -24,6 +24,7 @@ If you are using the Inner Self suite or other scripts:
     3. In the Output tab, copy everything in "Put in OUTPUT" and paste it below any other scripts in the Output tab.
 
 🗃️ Story Card Setup
+
 The engine reads all its data from your Story Cards. For the script to work, your cards must be formatted specifically within the Entry field.
 
 1. The Headers
@@ -48,21 +49,26 @@ Example Entry:
     ...
 
 🧠 How It Works
+
 This engine is designed to be "smart" so it doesn't break immersion or cheat the system.
 
 🛡️ Anti-Spam Logic
+
 The AI can sometimes be repetitive (e.g., "She sighs and sighs and sighs"). Our script uses Unique Word Detection. Even if the AI repeats a trigger word multiple times in one response, the evolution level will only change once for that word per turn.
 
 🎯 Interaction Filtering
+
 The engine only calculates "Vibe Checks" if the NPC is actually talking to or interacting with you. It scans the AI's output for the words "you" or "your." If the NPC is talking to a different character, the evolution level stays exactly where it is.
 
 📝 Smart Author's Note Injection
+
 The script manages your Author's Note automatically.
     It preserves any text you have manually written (like style or genre notes).
     It appends the Evolution State to the very end of the note.
     By placing the behavior at the end, the AI gives it maximum priority, ensuring the character acts exactly as their current level dictates.
 
 🛠️ Tips for Success
+
     Triggers: You do not need complex keys. Set the Story Card triggers to the Character's Name.
     Variable Injection: Using ${What is your name?} in your descriptions allows the AI to automatically insert your character's name, making the instructions hyper-specific.
     Pacing: If the character is evolving too fast, lower the Gain Rate in your Story Card. If they are too forgiving, increase the Drain Rate.
