@@ -28,26 +28,26 @@ Follow these instructions to set up Slowburn as a standalone system or as part o
 
 The engine reads all its data from your Story Cards. For the script to work, your cards must be formatted specifically within the Entry field.
 
-1. The Headers
-The script scans for the header Evolution Stages Part 1: to find your data. If you have many stages and hit the 2,000-character limit, simply create a second card starting with Evolution Stages Part 2:.
+    1. The Headers
+    The script scans for the header Evolution Stages Part 1: to find your data. If you have many stages and hit the 2,000-character limit, simply create a second card starting with Evolution Stages Part 2:.
 
-2. Configuration Settings
-At the top of your Story Card Entry (inside Part 1), include these three lines:
-    Character Name: The exact name of the NPC to track.
-    Gain Rate: How much the level increases per positive interaction (e.g., 0.2).
-    Drain Rate: How much the level decreases per negative interaction (e.g., 0.5).
+    2. Configuration Settings
+    At the top of your Story Card Entry (inside Part 1), include these three lines:
+        Character Name: The exact name of the NPC to track.
+        Gain Rate: How much the level increases per positive interaction (e.g., 0.2).
+        Drain Rate: How much the level decreases per negative interaction (e.g., 0.5).
 
-3. Formatting the Stages
-Each stage must follow the format: [Level Number]: [Stage Name] - [Description] towards ${What is your name?}.
-Example Entry:
+    3. Formatting the Stages
+    Each stage must follow the format: [Level Number]: [Stage Name] - [Description] towards ${What is your name?}.
+    Example Entry:
 
-    Evolution Stages Part 1:
-    Character Name: ${What is the characters name?}
-    Gain Rate: 0.2
-    Drain Rate: 0.5
-    0: The Default - Standard, polite behavior towards ${What is your name?}.
-    15: The Flirt - Active teasing and testing boundaries towards ${What is your name?}.
-    ...
+        Evolution Stages Part 1:
+        Character Name: ${What is the characters name?}
+        Gain Rate: 0.2
+        Drain Rate: 0.5
+        0: The Default - Standard, polite behavior towards ${What is your name?}.
+        15: The Flirt - Active teasing and testing boundaries towards ${What is your name?}.
+        ...
 
 🧠 How It Works
 
@@ -63,10 +63,10 @@ The engine only calculates "Vibe Checks" if the NPC is actually talking to or in
 
 📝 Smart Author's Note Injection
 
-The script manages your Author's Note automatically.
-    It preserves any text you have manually written (like style or genre notes).
-    It appends the Evolution State to the very end of the note.
-    By placing the behavior at the end, the AI gives it maximum priority, ensuring the character acts exactly as their current level dictates.
+    The script manages your Author's Note automatically.
+        It preserves any text you have manually written (like style or genre notes).
+        It appends the Evolution State to the very end of the note.
+        By placing the behavior at the end, the AI gives it maximum priority, ensuring the character acts exactly as their current level dictates.
 
 🛠️ Tips for Success
 
